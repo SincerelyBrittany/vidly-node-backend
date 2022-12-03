@@ -92,6 +92,8 @@ Found here: https://forum.codewithmosh.com/t/urgent-deprecated-handleexceptions-
 and here:  https://stackoverflow.com/questions/58034955/read-only-file-system-when-attempting-mkdir-data-db-on-mac
 
 
+
+
 Getting Application to work (debugging):
 
 Make the following changes: In package.json
@@ -121,6 +123,8 @@ Run:
 npm i
 node seed.js
 node index.js ```
+
+Then go to http://localhost:3900/api/genres
 
 Used the following links: https://forum.codewithmosh.com/t/urgent-deprecated-handleexceptions-will-be-removed-in-winston-4-use-exceptions-handle/16062
 
