@@ -62,3 +62,68 @@ On Windows:
 
     set vidly_jwtPrivateKey=yourSecureKey
 # practice-mastering-react-node-backend
+
+notes that helped:
+
+### Mongo DB issues
+https://stackoverflow.com/questions/58034955/read-only-file-system-when-attempting-mkdir-data-db-on-mac
+
+
+Catalina has a surprise change: it won't allow changes to the root directory (this was discussed in a forum thread as well):With the new macOS Catalina update, the folder /data/db becomes read-only, you cannot modify it. Follow this procedure to create a DB in another folder:
+
+Change mongod directory :
+
+``sudo mongod --dbpath /System/Volumes/Data/data/db``
+
+Give it an alias to use it as mongod:
+
+``alias mongod="sudo mongod --dbpath /System/Volumes/Data/data/db"``
+
+Just type ``mongod`` in your terminal, it should work.
+
+Extra => If you need to give it current user rights, use this line of code :
+
+``sudo chown -R $(whoami) /System/Volumes/Data/data/db``
+
+(Just for info -> ``$(whoami)`` is just a variable that returns your current user)
+
+Found here: https://forum.codewithmosh.com/t/urgent-deprecated-handleexceptions-will-be-removed-in-winston-4-use-exceptions-handle/16062
+
+and here:  https://stackoverflow.com/questions/58034955/read-only-file-system-when-attempting-mkdir-data-db-on-mac
+
+
+Getting Application to work (debugging):
+
+Make the following changes: In package.json
+
+“bcrypt”: “^5.0.0”
+“mongoose”: “^6.5.2”
+
+``npm update mongoose``
+ 
+In rentals.js:
+
+//Fawn.init 8(mongoose);
+Fawn.init(“mongodb://127.0.0.1:27017/vidly”);
+
+Open db.js in startup folder.
+
+Change
+
+``mongoose.connect(db)``
+to
+
+``mongoose.connect(db, {useNewUrlParser:true, useUnifiedTopology: true})``
+
+Run: 
+
+``` rm -rf node_modules
+npm i
+node seed.js
+node index.js ```
+
+Used the following links: https://forum.codewithmosh.com/t/urgent-deprecated-handleexceptions-will-be-removed-in-winston-4-use-exceptions-handle/16062
+
+https://forum.codewithmosh.com/t/heroku-mongodb-deployment-error-react-course/297/28
+
+https://forum.codewithmosh.com/t/node-seed-js-error-in-vidly-api-node-mongoerror-unsupported-op-query-command-delete/13939/29?page=2
